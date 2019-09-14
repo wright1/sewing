@@ -1,24 +1,75 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect, setState, createRef } from 'react';
+import Upload from './components/home/uploader'
+import FileNameList from './components/home/fileNames'
+import pdfImage from './images/pdf.svg'
+
+
 
 function App() {
+
+  const [fileName, setFileName] = useState([]);
+  const [uploading, setuploading] = useState(false);
+
+
+  // useEffect(() => {
+
+  //   const line =fileName.filter((file) => {
+  //     return (!file.name.endsWith('.pdf'))  
+  //   })
+
+  //   console.log(line)
+
+    
+    
+    
+  // })
+
+const inputRef = createRef();
+
+const onButtonClick = () => {
+
+  inputRef.current.click()
+  // console.log(inputRef.current.files)
+}
+
+
+const onChangeFiles = (e) => {
+   
+  e.stopPropagation();
+  e.preventDefault();
+
+  setFileName(Array.from(e.target.files))
+  console.log(e.target.files)
+
+  
+}
+
+const warningRef = fileName.map(() => createRef());
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      
+      <Upload
+      ref={inputRef}
+      img={ pdfImage } 
+      onClick={ onButtonClick }
+      onChange={ onChangeFiles }
+      />
+
+      {
+        fileName.map((file) => {
+
+        
+          return <FileNameList
+          key={ file.lastModified }
+          ref={ warningRef }
+          name={ file.name}
+           />
+        })
+      }
+
+      {}
+      
     </div>
   );
 }
