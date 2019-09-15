@@ -1,6 +1,8 @@
 import React, { useState, useEffect, setState, createRef } from 'react';
 import Upload from './components/home/uploader'
 import FileNameList from './components/home/fileNames'
+import UploadBtn from './components/home/upload'
+import filenameCheck from './utils/filenameCheck'
 import pdfImage from './images/pdf.svg'
 
 
@@ -11,25 +13,14 @@ function App() {
   const [uploading, setuploading] = useState(false);
 
 
-  // useEffect(() => {
 
-  //   const line =fileName.filter((file) => {
-  //     return (!file.name.endsWith('.pdf'))  
-  //   })
-
-  //   console.log(line)
-
-    
-    
-    
-  // })
 
 const inputRef = createRef();
 
 const onButtonClick = () => {
 
   inputRef.current.click()
-  // console.log(inputRef.current.files)
+
 }
 
 
@@ -38,12 +29,9 @@ const onChangeFiles = (e) => {
   e.stopPropagation();
   e.preventDefault();
 
-  setFileName(Array.from(e.target.files))
-  // console.log(e.currentTarget.current)
-  // console.log(warningRef.current)
-
-  
+  setFileName(Array.from(e.target.files))  
 }
+
 
 const removeFile = (e) => {
   console.log(e.target.textContent)
@@ -57,8 +45,13 @@ const removeFile = (e) => {
 
 }
 
+const fileUpload = () => {
+  console.log(filenameCheck(fileName))
+}
+
 
   return (
+    <>
     <div>
       
       <Upload
@@ -69,7 +62,7 @@ const removeFile = (e) => {
       />
 
       {
-        fileName.map((file, i) => {
+        fileName.map((file) => {
 
         
           return <FileNameList
@@ -78,11 +71,13 @@ const removeFile = (e) => {
           onClick={ removeFile }
            />
         })
-      }
-
-      {}
-      
+      }      
     </div>
+    <UploadBtn
+    disabled={ filenameCheck(fileName) !== fileName.length}
+    onClick={ fileUpload }
+    />
+    </>
   );
 }
 
