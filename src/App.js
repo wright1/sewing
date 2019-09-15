@@ -95,7 +95,7 @@ const fileUpload = () => {
       }      
     </div>
     <UploadBtn
-    disabled={ filenameCheck(fileName) !== fileName.length && fileName.length === 0}
+    disabled={ filenameCheck(fileName) !== fileName.length || fileName.length === 0}
     onClick={ fileUpload }
     />
     </>
