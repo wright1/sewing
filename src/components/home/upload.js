@@ -9,13 +9,18 @@ background-color: transparent;
 
 const UploadBtn = ({ onClick, disabled }) => {
     return(
-        
-        <Button 
+        // <form 
+        // encType="multipart/form-data"
+        // method='post'
+        //  >
+        <Button
+        type='button' 
         onClick={ () => onClick() }
         disabled={ disabled }
         >
             UPLOAD
         </Button>
+        // </form>
     )
 }
 

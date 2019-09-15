@@ -47,6 +47,27 @@ const removeFile = (e) => {
 
 const fileUpload = () => {
   console.log(filenameCheck(fileName))
+
+  const formData = new FormData();
+
+  fileName.forEach((file, i) => {
+
+    formData.append(i, file)
+    
+  })
+
+  console.log('here,',formData)
+  // console.log(fileName)
+
+  fetch('http://localhost:8000/upload',{
+    method:'post',
+    body: formData,
+  })
+    .then( res => console.log(res))
+    .catch(err => console.log(err))
+
+    setFileName([]);
+
 }
 
 
@@ -74,7 +95,7 @@ const fileUpload = () => {
       }      
     </div>
     <UploadBtn
-    disabled={ filenameCheck(fileName) !== fileName.length}
+    disabled={ filenameCheck(fileName) !== fileName.length && fileName.length === 0}
     onClick={ fileUpload }
     />
     </>

@@ -13,7 +13,8 @@ const Upload = React.forwardRef(({ onClick, onChange, img },ref) => {
 
     return(
         <Wrapper>
-            <input type='file' 
+            <input type='file'
+            name='files' 
             ref={ ref } 
             accept='.pdf' 
             multiple={ true }
