@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 
 
-const FileNameList = React.forwardRef(({name, key, onClick}, ref) => {
+const FileNameList = ({name, onClick}) => {
     const Item = styled.li`
     display:flex;
     width: 100vw;
@@ -14,7 +14,8 @@ const FileNameList = React.forwardRef(({name, key, onClick}, ref) => {
         width: 100vw;
         >span{
             color: red;
-            margin-left: 15em;        
+            margin-left: 15em;
+            pointer-events: none;        
         }
         
     button{
@@ -35,19 +36,18 @@ const FileNameList = React.forwardRef(({name, key, onClick}, ref) => {
         
     }
     `
-
+    
     const showSpan = !name.endsWith('.pdf')
 
     return(
         <Item>
-            <div key={ key }>{ name }   
+            <div onClick={ (e)=> onClick(e) }>{ name }   
              {showSpan && <span >This is not a pdf File</span>}
-            <button onClick={ ()=> onClick() }>&#215;</button>
             </div>
         </Item>
         
     
     )
-})
+}
 
 export default FileNameList
